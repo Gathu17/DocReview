@@ -12,7 +12,7 @@ router.patch("/:id", verifyTokenAndAuthorization, async (req, res) => {
     const user = await User.findById(req.params.id)
     console.log(user.password)
 
-  const match =  user.password === oldPassword   //await bcrypt.compare(oldPassword, user.password)
+  const match =  await bcrypt.compare(oldPassword, user.password)
   
   console.log(match)
   if(!match){

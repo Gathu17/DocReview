@@ -15,9 +15,9 @@ router.post('/register', async (req, res)=>{
         res.status(400).json({message: error})
     } */
     let user = User.findOne({email})
-   /* if(user){
-        res.status(409).json({message:"Email already exists"})
-    }*/
+     if(user){
+      return  res.status(409).json({message:"Email already exists"})
+    }
     let uniqueString = randomString();
     user = new User({
         username:name,
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
         res.status(401).json('User not verified')
     }
     const match = await bcrypt.compare(value.password,user.password)
-    console.log(match)
+    
     if(!match){
       return  res.status(400).json("Wrong credentials")
     }

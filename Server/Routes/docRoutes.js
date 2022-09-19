@@ -6,11 +6,11 @@ const {verifyTokenAndAuthorization, verifyCommittee} = require('../middlewares/v
 
 
 //CREATE DOC
-router.post('/',verifyTokenAndAuthorization, async (req, res) => {
-
+router.post('/:id',verifyTokenAndAuthorization, async (req, res) => {
+   console.log(req.body)
      const doc = new Doc({
         userId: req.user.id,
-        documents: [{name:req.body.name , source: req.body.file}],
+        documents: [{name:req.body.name , file: req.body.file}],
 
      })
      const savedDoc = await doc.save()
