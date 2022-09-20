@@ -1,6 +1,6 @@
 var {model,Schema} = require("mongoose") 
 const docSchema = new Schema({
-   userId: {type: String, unique: true},
+   userId: {type: String},
    documents: [{
     name: String,
     file: { type: Buffer, contentType: String, required: true}

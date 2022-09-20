@@ -9,7 +9,7 @@ const verifyToken = (req,res,next) => {
             try {
                 const user = jwt.verify(token, process.env.SECRET_KEY);
                 req.user =  user;
-                console.log(req.user)
+                
                 next()
             } catch (err) {
                 res.status(500).json('Invalid/Expired token');
@@ -27,7 +27,7 @@ const verifyToken = (req,res,next) => {
 
 const verifyTokenAndAuthorization = (req, res, next) => {
     verifyToken(req,res,()=>{
-        if(req.user.id === req.params.id || req.user.role === 'admin' || req.user.role === 'review'){
+        if(req.user.role === 'user' || req.user.role === 'admin' || req.user.role === 'review'){
            next();
         }else{
              res.status(403).json("Unauthorized action")
