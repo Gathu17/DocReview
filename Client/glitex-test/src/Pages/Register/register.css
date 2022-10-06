@@ -1,0 +1,22 @@
+body{
+    background-color: #fe958f40;
+}
+.form-container{
+    width: 20%;
+    margin: 0 auto;
+    margin-top: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1 ;
+    z-index: 1000;
+    font-weight: bolder;
+  }
+input{
+    width: 200px;
+    line-height: 1.5em;
+    margin-bottom: 5px;
+}
+input[type="submit"]{
+    background-color: lime;
+}

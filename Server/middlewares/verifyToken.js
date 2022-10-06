@@ -2,8 +2,10 @@ const jwt = require('jsonwebtoken')
 
 const verifyToken = (req,res,next) => {
     const authHeader = req.headers.authorization;
-    console.log(req.headers)
+
+
     if(authHeader) {
+        
         const token = authHeader.split('Bearer ')[1];
         if (token) {
             try {
@@ -20,6 +22,7 @@ const verifyToken = (req,res,next) => {
         }
 
     }else{
+        
         res.status(501).json('Authentification header must be provided')
     }
     
@@ -28,6 +31,7 @@ const verifyToken = (req,res,next) => {
 const verifyTokenAndAuthorization = (req, res, next) => {
     verifyToken(req,res,()=>{
         if(req.user.role === 'user' || req.user.role === 'admin' || req.user.role === 'review'){
+            console.log('verified')
            next();
         }else{
              res.status(403).json("Unauthorized action")
@@ -46,7 +50,8 @@ const verifyAdmin = (req,res,next) => {
 }
 const verifyCommittee = (req,res,next) => {
     verifyToken(req,res,()=>{
-       if(req.user.role === 'review'){
+       if(req.user.role === 'review' || req.user.role === 'admin'){
+        console.log('verified')
         next()
     }else{
         res.status(401).json("Admin access only")

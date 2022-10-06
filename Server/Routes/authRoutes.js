@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/User')
-const {authSchema} = require("../utils/validator")
+const {registerSchema , loginSchema} = require("../utils/validator")
 const {randomString} = require('../utils/randomString')
 const {generateToken} = require('../utils/generateToken')
 const sendEmail = require('../utils/sendEmail')
@@ -8,13 +8,14 @@ const bcrypt = require('bcryptjs')
 const {verifyTokenAndAuthorization} = require('../middlewares/verifyToken')
 
 router.post('/register', async (req, res)=>{
-    const value = authSchema.validateAsync(req.body)
+    const value = registerSchema.validateAsync(req.body)
     console.log(value)
     const {email,name,password} = req.body
   /*  if(error.isJoi()){ 
         res.status(400).json({message: error})
     } */
-    let user = User.findOne({email})
+    let user = await User.findOne({email:email})
+    console.log(user)
      if(user){
       return  res.status(409).json({message:"Email already exists"})
     }
@@ -34,7 +35,7 @@ router.post('/register', async (req, res)=>{
 })
 router.post('/login', async (req, res) => {
      try{
-        const {value} = authSchema.validate(req.body)
+        const {value} = loginSchema.validate(req.body)
         console.log(value.name)
     
     const user = await  User.findOne({email: value.email})

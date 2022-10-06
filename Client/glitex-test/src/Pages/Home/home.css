@@ -1,0 +1,56 @@
+.home-container{
+    /* width: 100vw;
+    height: 100vh;
+    overflow: hidden; */
+}
+.logo-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.file-btn{
+    position: sticky;
+    bottom: 5%;
+    left: 90%;
+    width: 6%;
+    height: 6%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00a212;
+    color: black;
+    box-shadow: -2px 2px 5px 5px #80808088;
+}
+.doc-container{
+    width: 50vw;
+    /* height: 12vh; */
+    /* border: 1px solid #000000;   */
+    /* position: absolute; */
+    left: 5%;
+    
+}
+.file::before{
+    padding: 5px;
+    background-color: lime;
+    content: 'UPDATE'
+}
+.submit::before{
+    padding: 5px;
+    background-color: lime;
+    content: 'SUBMIT'
+}
+.comments-container{
+    position: absolute;
+    height: 50vh;
+    width: 20vw;
+    background-color: white;
+    top: 5%;
+    right: 0;
+}

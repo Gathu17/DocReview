@@ -9,7 +9,8 @@ const docSchema = new Schema({
     {
         body: String,
     }
-   ]
+   ],
+   status: {type: String, default: 'pending'}
 
 },{timestamps: true}
 )

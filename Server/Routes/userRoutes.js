@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const User = require('../models/User')
-const {verifyToken,verifyTokenAndAuthorization,verifyAdmin} = require('../middlewares/verifyToken')
+const {verifyTokenAndAuthorization,verifyAdmin, verifyCommittee} = require('../middlewares/verifyToken')
 const bcrypt = require('bcryptjs')
 
 //UPDATE
@@ -43,7 +43,7 @@ router.patch("/:id", verifyTokenAndAuthorization, async (req, res) => {
   });
   
   //GET USER
-  router.get("/find/:id", verifyAdmin, async (req, res) => {
+  router.get("/find/:id", verifyCommittee, async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { password, ...others } = user._doc;

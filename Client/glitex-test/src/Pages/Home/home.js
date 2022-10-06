@@ -1,0 +1,76 @@
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faFolderOpen, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {useQuery} from 'react-query'
+import {Link} from 'react-router-dom'
+import './home.css'
+import Document from '../../Components/document'
+import { getUserDoc,getDocs } from '../../Api/docApi'
+import AddDocButton from '../../Components/addDocButton'
+import {Stack} from '@mui/material'
+import {useSelector} from 'react-redux'
+import ReviewDoc from '../../Components/reviewDoc'
+import CommentBar from '../../Components/commentsBar'
+import {loadingDocs, loadedDocs,errorDocs} from '../../Redux/docRedux'
+import {useDispatch} from 'react-redux'
+
+
+const Home = () => {
+const docImg = <FontAwesomeIcon icon={faFolderOpen} size='3x'/>
+const addIcon = <FontAwesomeIcon icon={faPlus} size='3x'/>
+
+const user =  useSelector((state)=> state.user.user)
+
+const dispatch = useDispatch()
+const { isLoading, isError, data, error ,isFetched,isFetching} = useQuery(['doc'],getUserDoc,{
+  refetchOnMount: "always",
+  refetchOnReconnect: "always",
+  enabled: user.role === "user"
+});
+const docs = useQuery(['docs'],getDocs,{
+enabled: user.role === 'review' 
+})
+if(isLoading){
+  dispatch(loadingDocs())
+}else if(data &&  isFetched){
+  dispatch(loadedDocs({ data: data.data[0].documents, quantity: data.data[0].documents.length }))
+}
+
+console.log(docs,isLoading,isError)
+if(isError || docs?.isError){
+  console.log(error)
+}
+console.log(data)
+
+
+  return (
+    <div className="home-container">
+      <Stack spacing={5} direction="column">
+
+        {user.role === 'review' ? !docs.isLoading && docs?.data && docs?.data?.data.map((doc)=>{
+          return(
+            <ReviewDoc id={doc._id} doc={doc}/>
+          )
+        }) : (!isLoading && data && data?.data[0].documents.map((data)=>{
+        
+        return(
+         <Document id={data._id}  data={data}/>
+        )
+        
+      }))}
+      
+      </Stack>
+      {data?.data[0] && <CommentBar comments={data.data[0].comments}/>}
+      {
+        !data?.data[0].documents && !docs?.data  &&   (<div className="logo-container">
+       
+        <div>{docImg}</div>
+       <div>No documents in review</div>
+      </div>)
+      }
+      <Link className="file-btn" to="/files" >{addIcon}</Link> 
+    </div>
+  )
+}
+
+export default Home
