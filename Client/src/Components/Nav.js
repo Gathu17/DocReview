@@ -9,14 +9,15 @@ import {useSelector,useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router'
 import {logout} from '../Redux/userRedux'
+import { QueryCache } from "react-query";
 
 const drawerWidth = 240;
 const navItems = ['Home', 'About', 'Contact'];
 
 export default function NavBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const name =  useSelector((state)=> state.user.user?.username)
-  console.log(name)
+  const name =  useSelector((state)=> state.user.user?.user?.username)
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleDrawerToggle = () => {
@@ -24,6 +25,9 @@ export default function NavBar() {
   };
 
   function Logout(){
+    localStorage.removeItem('jwtToken')
+    const queryCache = new QueryCache()
+    queryCache.clear();
      dispatch(logout())
      navigate('/login')
   }
@@ -91,7 +95,7 @@ export default function NavBar() {
           {drawer}
         </Drawer>
       </Box>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" >
         <Toolbar />
         <Typography>
         </Typography>

@@ -8,7 +8,7 @@ const fs = require('fs')
 
 //CREATE DOC
 router.post('/',verifyTokenAndAuthorization,upload.single('file'), async (req, res) => {
-   console.log(req.file)
+   console.log(req.file,'create')
    const doc = await Doc.find({userId: req.user.id})
     if(!doc){
      const doc = new Doc({
@@ -22,6 +22,7 @@ router.post('/',verifyTokenAndAuthorization,upload.single('file'), async (req, r
 })
 //GET DOC
 router.get('/',verifyTokenAndAuthorization, async (req, res)=>{
+    console.log('get doc')
     try{
         const doc = await Doc.find( {userId: req.user.id}).sort({createdAt: -1})
         if(doc){
@@ -36,8 +37,9 @@ router.get('/',verifyTokenAndAuthorization, async (req, res)=>{
 router.get('/review',verifyCommittee, async (req, res)=> {
     try{
         const doc = await Doc.find().sort({createdAt: -1})
-        console.log('found')
+        
         if(doc){
+            console.log('found')
             res.status(200).json(doc)
         }
     }catch(err){
@@ -86,7 +88,8 @@ router.delete('/single/:id',verifyTokenAndAuthorization, async function(req, res
     const doc = await Doc.find({userId: req.user.id})
     if(doc){
         try{
-           doc[0].documents.filter(d => d.id !== req.params.id)
+        const docIndex =  doc[0].documents.findIndex(d => d.id === req.params.id)
+        doc[0].documents.splice(docIndex, 1)
            const savedDoc =  await doc[0].save()
            res.status(200).json(savedDoc)
         }catch(error){
@@ -96,6 +99,7 @@ router.delete('/single/:id',verifyTokenAndAuthorization, async function(req, res
 })
 //DELETE DOC
 router.delete('/:id',verifyTokenAndAuthorization, async (req, res)=>{
+    console.log(req.params.id)
     try {
         await Doc.findByIdAndDelete(req.params.id);
         res.status(200).json("Doc has been deleted...");

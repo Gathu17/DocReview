@@ -4,20 +4,20 @@ import {addComment} from '../Api/commentApi'
 import {Button} from '@mui/material'
 
 
-const CommentBtn = ({id,body}) => {
+const CommentBtn = ({id,body,callBack}) => {
 
 const queryClient = new useQueryClient() 
 const mutation = useMutation(['comment'],addComment,{
      
         onSuccess: (data) => {
-          console.log(data)
+          
           queryClient.invalidateQueries(['docs'])
         }
     })
  async function handleSubmit(e){
         e.preventDefault()
-        console.log(body)
         await mutation.mutateAsync({id: id, comments:body })
+        callBack()
       }
   return (
     <div>

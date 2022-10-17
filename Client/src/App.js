@@ -9,7 +9,7 @@ import File from './Pages/Files/file'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
     <NavBar/>
     <Routes>
       <Route path="/"  element={<Home/>}/>

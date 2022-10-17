@@ -15,7 +15,8 @@ const verifyToken = (req,res,next) => {
                 next()
             } catch (err) {
                 res.status(500).json('Invalid/Expired token');
-
+                console.log(token)
+               console.log('invalid')
             }
         }else{
             res.status(501).json("Authentification token must be\'Bearer [token]")

@@ -1,21 +1,34 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import {Paper,Divider,Container,Collapse,Typography,TextField,Button} from '@mui/material/'
 import {ExpandLess, ExpandMore} from '@mui/icons-material'
-import {useQuery,useMutation} from 'react-query'
+import {useQuery,useMutation,useQueryClient} from 'react-query'
 import {getUser} from '../Api/userApi'
 import CommentBtn from './commentBtn'
 import DeleteCommentBtn from './deleteComment'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faXmark} from '@fortawesome/free-solid-svg-icons'
+import {deleteDoc} from '../Api/docApi'
+
 
 const ReviewDoc = ({doc}) => {
   const [open, setOpen] = useState(false)
   const [body, setBody] = useState('')
-  
+  const inputRef = useRef(null)
+  const queryClient = new useQueryClient()
+  const delIcon = <FontAwesomeIcon icon={faXmark} size='2x' color='red'/>
   const { isLoading, isError, data, error } = useQuery(['person',doc.userId],() => getUser(doc.userId))
-  console.log(data)
+  
 
   if(isError){console.log(error)}
   
-  const {comments,documents, status, createdAt} = doc
+  
+  const {comments,documents, status, _id, createdAt} = doc
+  const mutation = useMutation(['doc'],()=> deleteDoc(_id),{
+    onSuccess: (data) => {
+      console.log(data)
+      queryClient.invalidateQueries(['docs'])
+    }
+   })
   console.log(doc)
   function BufferToBase64(file){
   let str = ""
@@ -32,15 +45,18 @@ const ReviewDoc = ({doc}) => {
   function handleClick(){
     setOpen(!open)
   }
+  function callBack(){
+    setBody('')
+  }
   
   return (
-    <div>
-      <Paper>
-         <Container maxWidth={'lg'}>
-
-           <Typography><h1>{data?.data.username}</h1> <h3>Documents({doc && doc.documents.length})</h3></Typography> 
-            <Typography >
-              <h2 style={{fontWeight: 'bold',position: 'absolute',right: '10px'}}>Status:<span style={{color: 'red'}}>{status}</span></h2>
+    <div style={{width: '80%',marginLeft: '10%'}}>
+      <Paper elevation={10} >
+         <Container >
+         <span style={{marginTop: '0',float: 'right'}} onClick={async () => mutation.mutateAsync()}>{delIcon}</span>
+          <h1 style={{fontSize: '2rem'}}>{data?.data.username}</h1> <Typography variant="h3">Documents({doc && doc.documents.length})</Typography> 
+            <Typography variant="h4" sx={{fontWeight: 'bold',right: '10px',float:"right"}}>
+             Status:<span style={{color: 'red'}}> {status}</span>
             </Typography>
             
             <div>
@@ -50,10 +66,10 @@ const ReviewDoc = ({doc}) => {
              <Collapse in={open}>
               {documents.map((document)=> {
                 return(
-                  <>
+                  <div key={document._id}>
                   <a href={`data:application/pdf;base64,${BufferToBase64(document.file)}`} download='application.pdf'>download</a>
                    <embed src={`data:application/pdf;base64,${BufferToBase64(document.file)}`} /> 
-                 </>  
+                 </div>  
                 )
               })}
              </Collapse>
@@ -63,7 +79,7 @@ const ReviewDoc = ({doc}) => {
               <Typography variant="h5" align="center" sx={{fontWeight: 'bold',textDecoration: 'underline'}}>Comments</Typography>
               {comments && comments.map(comment => {
                 return(
-                  <Typography variant="h6" align="center" gutterBottom="true" sx={{fontFamily:"Georgia, serif"}}>
+                  <Typography variant="h6" align="center" gutterBottom sx={{fontFamily:"Georgia, serif"}} key={comment.id}>
                     {comment.body} <DeleteCommentBtn commentId={comment._id} docId={doc._id}/>
                   </Typography>
                 )
@@ -71,8 +87,9 @@ const ReviewDoc = ({doc}) => {
             </div>
             
             
-            <TextField id="comments" fullWidth='true' minRows="3" margin="dense" variant="outlined" value={body} onChange={(e) => {setBody(e.target.value) }}/>
-            <CommentBtn id={doc._id} body={body}/>
+            <TextField id="comments" fullWidth minRows="3" margin="dense" variant="outlined" ref={inputRef} value={body} onChange={(e) => {setBody(e.target.value) }}/>
+            <CommentBtn id={doc._id} body={body} style={{margin:'10px'}} callBack={callBack}/>
+        
          </Container>   
         </Paper> 
         <Divider/>  

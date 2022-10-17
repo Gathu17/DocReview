@@ -1,0 +1,31 @@
+
+.login-container{
+    width: 20%;
+    height: 20%;
+    background-color: #01e40020;
+    border-radius: 5%;
+    box-shadow: -5px 5px 10px 5px #888888;
+    padding: 5%;
+    margin: 0 auto;
+    margin-top: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 1 ;
+    z-index: 1000;
+    font-weight: bolder;
+  }
+ 
+  
+input{
+    width: 100%;
+    line-height: 2em;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+input[type="submit"]{
+    background-color: lime;
+    width: 60%;
+    margin-left: 20%;
+}

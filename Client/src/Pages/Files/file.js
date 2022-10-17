@@ -5,9 +5,10 @@ import {createDoc,getUserDoc,addDoc} from '../../Api/docApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
+import './file.css'
 
 const File = () => {
-  const backIcon = <FontAwesomeIcon icon={faArrowLeft} size='3x'/>
+  const backIcon = <FontAwesomeIcon icon={faArrowLeft} size='2x'/>
   const { data} = useQuery(['doc'],getUserDoc)
   const queryClient = useQueryClient()
   console.log(data)
@@ -34,9 +35,9 @@ const onSubmit = async (data) => {
   await mutation.mutateAsync(formData)
 }
   return (
-    <div>
-      <Link to="/" style={{position: 'absolute',top: "10%", left: '0',textDecoration:"none", width: "10%"}}>{backIcon} <span style={{fontSize: "1.5rem"}}>back</span></Link >
-      <div className="form-container">
+    <div style={{ width: "100vw",height:"100vh",backgroundColor:"hsl(126, 68%, 97%)"}}>
+      <Link to="/" style={{position: 'absolute',top: "10%", left: '2rem',textDecoration:"none", width: "10%"}}>{backIcon} <span style={{fontSize: "1.5rem",margin: "50% 10px"}}>back</span></Link >
+      <div className="file-container">
          <form onSubmit={handleSubmit(onSubmit)}>
         
           <input {...register("name", { required: {
@@ -57,7 +58,7 @@ const onSubmit = async (data) => {
            type="file"
            />
         
-          <input type="submit" />
+          <input type="submit" value="ADD"/>
         </form>
     </div>
     </div>

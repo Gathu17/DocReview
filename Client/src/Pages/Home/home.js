@@ -19,28 +19,30 @@ const Home = () => {
 const docImg = <FontAwesomeIcon icon={faFolderOpen} size='3x'/>
 const addIcon = <FontAwesomeIcon icon={faPlus} size='3x'/>
 
-const user =  useSelector((state)=> state.user.user)
-
+const user =  useSelector((state)=> state.user.user.user)
+console.log(user)
 const dispatch = useDispatch()
 const { isLoading, isError, data, error ,isFetched,isFetching} = useQuery(['doc'],getUserDoc,{
-  refetchOnMount: "always",
-  refetchOnReconnect: "always",
-  enabled: user.role === "user"
+  enabled: user.role === 'user',
+  retry: 3
 });
 const docs = useQuery(['docs'],getDocs,{
-enabled: user.role === 'review' 
+enabled: user.role === 'review' ,
+retry: true
 })
 if(isLoading){
   dispatch(loadingDocs())
 }else if(data &&  isFetched){
-  dispatch(loadedDocs({ data: data.data[0].documents, quantity: data.data[0].documents.length }))
+  console.log(data)
+  dispatch(loadedDocs({ data: data.data[0]?.documents, quantity: data.data[0]?.documents.length }))
 }
 
 console.log(docs,isLoading,isError)
 if(isError || docs?.isError){
+  window.location.reload()
   console.log(error)
 }
-console.log(data)
+
 
 
   return (
@@ -49,7 +51,7 @@ console.log(data)
 
         {user.role === 'review' ? !docs.isLoading && docs?.data && docs?.data?.data.map((doc)=>{
           return(
-            <ReviewDoc id={doc._id} doc={doc}/>
+            <ReviewDoc key={doc.id} doc={doc}/>
           )
         }) : (!isLoading && data && data?.data[0].documents.map((data)=>{
         
@@ -68,7 +70,7 @@ console.log(data)
        <div>No documents in review</div>
       </div>)
       }
-      <Link className="file-btn" to="/files" >{addIcon}</Link> 
+      { user.role === "user" &&  <Link className="file-btn" to="/files" >{addIcon}</Link> }
     </div>
   )
 }

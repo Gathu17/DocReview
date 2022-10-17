@@ -2,9 +2,9 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
 
-const BASE_URL = "http://localhost:5000"
-
+const BASE_URL = "http://localhost:5000";
 const TOKEN = localStorage.getItem('jwtToken')
+console.log(TOKEN)
 
 if(localStorage.getItem('jwtToken')){
     const decodedToken = jwtDecode(localStorage.getItem('jwtToken'))
@@ -17,7 +17,7 @@ if(localStorage.getItem('jwtToken')){
 
 const docRequest = axios.create({
     baseURL: BASE_URL,
-    headers: { authorization: `Bearer ${TOKEN}`},
+    headers: { authorization: `Bearer ${localStorage.getItem('jwtToken')}`},
     
   });
 
@@ -77,5 +77,24 @@ export const getDocs = async () => {
     }catch(error){
         throw new Error('Error',error.response.data)
     
+    }
+}
+
+export const deleteFile = async (id) => {
+    try{
+       const res = await docRequest.delete(`/doc/single/${id}`)
+       return res
+    }catch(error){
+        throw new Error('Error',error.response.data.message)
+    }
+}
+
+export const deleteDoc = async (id) => {
+    try{
+       const res = await docRequest.delete(`/doc/${id}`)
+       console.log(res.data)
+       return res
+    }catch(error){
+        throw new Error('Error',error.response.data.message)
     }
 }

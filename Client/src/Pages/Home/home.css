@@ -1,7 +1,8 @@
 .home-container{
-    /* width: 100vw;
+     width: 100vw;
     height: 100vh;
-    overflow: hidden; */
+    overflow: auto;
+    background-color: hsl(126, 68%, 96%);
 }
 .logo-container{
     position: absolute;
@@ -15,9 +16,10 @@
     flex-direction: column;
 }
 .file-btn{
-    position: sticky;
-    bottom: 5%;
-    left: 90%;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    float: right;
     width: 6%;
     height: 6%;
     border-radius: 50%;
@@ -51,6 +53,7 @@
     height: 50vh;
     width: 20vw;
     background-color: white;
+    box-shadow: 2px -2px 5px 1px #888888f9 inset;
     top: 5%;
     right: 0;
 }

@@ -24,7 +24,7 @@ const Register = () => {
       
     
       return (
-        <div className="form-container">
+        <div className="register-container">
            <form onSubmit={handleSubmit(async (data) => await mutation.mutateAsync(data))}>
           <input {...register("name", { required: {
                value: true,
