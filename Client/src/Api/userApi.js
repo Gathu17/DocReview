@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
-const BASE_URL = "http://localhost:5000/users"
+const BASE_URL = "https://docreview-api.onrender.com/users"
 
 const TOKEN = localStorage.getItem('jwtToken')
 

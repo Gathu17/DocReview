@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "http://localhost:5000/comments"
+const BASE_URL = "https://docreview-api.onrender.com/comments"
 
 const TOKEN = localStorage.getItem('jwtToken')
 
