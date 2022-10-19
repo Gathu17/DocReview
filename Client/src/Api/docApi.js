@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
 
-const BASE_URL = "https://docreview-api.onrender.com";
+const BASE_URL = "https://review-app-bice.vercel.app";
 const TOKEN = localStorage.getItem('jwtToken')
 console.log(TOKEN)
 

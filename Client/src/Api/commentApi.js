@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "https://docreview-api.onrender.com/comments"
+const BASE_URL = "https://review-app-bice.vercel.app/comments"
 
 const TOKEN = localStorage.getItem('jwtToken')
 
