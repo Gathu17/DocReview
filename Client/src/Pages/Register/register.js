@@ -52,6 +52,7 @@ const Register = () => {
         
           <input type="submit" />
         </form>
+        {errors ? errors.map((error)=> <p>{error}</p>): ""}
         </div>
        
       );

@@ -4,7 +4,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import {useSelector,useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router'
@@ -16,7 +15,7 @@ const navItems = ['Home', 'About', 'Contact'];
 
 export default function NavBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const name =  useSelector((state)=> state.user.user?.user?.username)
+  const name =  useSelector((state)=> state.user.user?.username)
   
   const dispatch = useDispatch()
   const navigate = useNavigate()

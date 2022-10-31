@@ -1,5 +1,5 @@
 import React,{useState,useRef} from 'react'
-import {Paper,Divider,Container,Collapse,Typography,TextField,Button} from '@mui/material/'
+import {Paper,Divider,Container,Collapse,Typography,TextField} from '@mui/material/'
 import {ExpandLess, ExpandMore} from '@mui/icons-material'
 import {useQuery,useMutation,useQueryClient} from 'react-query'
 import {getUser} from '../Api/userApi'
@@ -16,13 +16,13 @@ const ReviewDoc = ({doc}) => {
   const inputRef = useRef(null)
   const queryClient = new useQueryClient()
   const delIcon = <FontAwesomeIcon icon={faXmark} size='2x' color='red'/>
-  const { isLoading, isError, data, error } = useQuery(['person',doc.userId],() => getUser(doc.userId))
+  const { isError, data, error } = useQuery(['person',doc.userId],() => getUser(doc.userId))
   
 
   if(isError){console.log(error)}
   
   
-  const {comments,documents, status, _id, createdAt} = doc
+  const {comments,documents, status, _id} = doc
   const mutation = useMutation(['doc'],()=> deleteDoc(_id),{
     onSuccess: (data) => {
       console.log(data)

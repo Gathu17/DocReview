@@ -2,16 +2,18 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
 
-const BASE_URL = "https://review-app-bice.vercel.app";
+const BASE_URL = "https://docreview-api.onrender.com";
 const TOKEN = localStorage.getItem('jwtToken')
 console.log(TOKEN)
+
+
 
 if(localStorage.getItem('jwtToken')){
     const decodedToken = jwtDecode(localStorage.getItem('jwtToken'))
     if(decodedToken.exp * 1000 < Date.now()){
         localStorage.removeItem('jwtToken')
         window.location.replace('/login')
-        console.log('login')
+
     }
 }
 
@@ -24,7 +26,7 @@ const docRequest = axios.create({
 export const getUserDoc = async () => {
 
     try{
-        console.log('gett')
+        
         const res = await docRequest.get('/doc')
         console.log(res)
        
@@ -38,7 +40,7 @@ export const getUserDoc = async () => {
  }
 export const createDoc  = async (doc) => {
     try{
-        console.log(doc)
+        
         const res =  await docRequest.post('/doc',doc)
         console.log(res)
     }catch(error){
@@ -58,7 +60,7 @@ export const updateDoc = async ({id,doc}) => {
 }
 export const addDoc = async (doc) => {
     try{
-        console.log(doc)
+        
         const res =  await docRequest.patch('/doc',doc)
         console.log(res)
         return res
@@ -70,7 +72,7 @@ export const addDoc = async (doc) => {
 export const getDocs = async () => {
     
     try{
-        console.log('get')
+        
         const res = await docRequest.get('/doc/review')
         console.log(res)
         return res

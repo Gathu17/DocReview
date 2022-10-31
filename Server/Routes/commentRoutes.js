@@ -21,7 +21,7 @@ router.patch('/:id',verifyCommittee, async (req, res) => {
     }
 })
 router.delete('/id',verifyCommittee, async (req,res) => {
-    console.log(req.query.docId, req.query.commentId)
+    
     try{
         const doc = await Doc.findById(req.query.docId)
         const commentIndex = doc.comments.findIndex((c)=> c.id === req.query.commentId)

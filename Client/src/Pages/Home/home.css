@@ -1,6 +1,6 @@
 .home-container{
      width: 100vw;
-    height: 100vh;
+    height: 100%;
     overflow: auto;
     background-color: hsl(126, 68%, 96%);
 }
@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #00a212;
+    background-color: hsl(119, 85%, 55%);
     color: black;
     box-shadow: -2px 2px 5px 5px #80808088;
 }

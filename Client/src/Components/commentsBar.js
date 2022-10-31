@@ -4,7 +4,7 @@ const CommentsBar = ({comments}) => {
   console.log(comments)
   return (
     <div className="comments-container">
-      <h2 style={{fontFamily: 'Helvetica',fontWeight: 'bold', textAlign: 'center',textDecoration: 'underline'}}>Comments</h2>
+      <h2 style={{fontFamily: 'Helvetica',fontWeight: 'bold', textAlign: 'center',textDecoration: 'underline', marginTop: '8%'}}>Comments</h2>
       <ul>
         {comments.map(comment =>{
         return(

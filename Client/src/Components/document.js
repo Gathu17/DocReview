@@ -1,6 +1,5 @@
 import {Paper,Divider,Container} from '@mui/material/'
-import React,{useState} from 'react'
-import {Document, Page, pdfjs} from 'react-pdf'
+import React from 'react'
 import UpdateDocButton from './updateDocButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faXmark,faDownload} from '@fortawesome/free-solid-svg-icons'

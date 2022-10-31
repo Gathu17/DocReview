@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
-const BASE_URL = "https://review-app-bice.vercel.app"
+const BASE_URL = "https://docreview-api.onrender.com"
 
 //const TOKEN = localStorage.getItem('jwtToken')
 
@@ -15,7 +15,7 @@ export const addUser = async (user) => {
         console.log(res.data);
         return res;
     }catch(err){
-        throw Error(err.response.data.message);
+        throw Error(err.response.data);
     }
    
 }
@@ -27,7 +27,7 @@ export const loginUser = async (user) => {
         const newUser = jwtDecode(res.data)
         return newUser;
     }catch(err){
-        throw Error(err.response.data.message);
+        throw Error(err.response.data);
     }
    
 }
