@@ -12,7 +12,7 @@ const BASE_URL = "https://docreview-api.onrender.com"
 export const addUser = async (user) => {
     try{
         const res = await authRequest.post("/auth/register",user)
-        console.log(res.data);
+        
         return res;
     }catch(err){
         throw Error(err.response.data);
@@ -22,7 +22,7 @@ export const addUser = async (user) => {
 export const loginUser = async (user) => {
     try{
         const res = await authRequest.post("/auth/login",user)
-        console.log(res.data);
+        
         localStorage.setItem('jwtToken',res.data)
         const newUser = jwtDecode(res.data)
         return newUser;

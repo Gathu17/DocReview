@@ -29,7 +29,7 @@ const ReviewDoc = ({doc}) => {
       queryClient.invalidateQueries(['docs'])
     }
    })
-  console.log(doc)
+  
   function BufferToBase64(file){
   let str = ""
   var bytes = new Uint8Array(file.data )

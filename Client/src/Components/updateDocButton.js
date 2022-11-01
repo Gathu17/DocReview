@@ -8,7 +8,7 @@ const AddDoc = ({name,docId}) => {
   const { register, handleSubmit } = useForm();
   const [file, setFile] = useState('')
   const queryClient = useQueryClient()
-console.log(name,docId)
+
 
 const mutation = useMutation(['document',docId], updateDoc,{
   onSuccess: (data) => {

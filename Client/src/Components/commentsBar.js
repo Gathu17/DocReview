@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CommentsBar = ({comments}) => {
-  console.log(comments)
+  
   return (
     <div className="comments-container">
       <h2 style={{fontFamily: 'Helvetica',fontWeight: 'bold', textAlign: 'center',textDecoration: 'underline', marginTop: '8%'}}>Comments</h2>

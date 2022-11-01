@@ -23,7 +23,7 @@ const userRequest = axios.create({
 export const getUser = async (id) => {
    try{
      const res = await userRequest.get(`/find/${id}`)
-     console.log(res)
+     
      return res;
    }catch(err){
      throw new Error('Error',err.response.data)

@@ -3,19 +3,23 @@ import {useForm } from "react-hook-form";
 import {addUser} from "../../Api/authApi"
 import {useMutation} from 'react-query'
 import './register.css'
+import { useNavigate } from 'react-router';
 
 
 const Register = () => {
-    const { register, handleSubmit, formState: {errors} } = useForm({
+    const { register, handleSubmit,  } = useForm({
         defaultValues: {
           name: '',
           email: '',
           password: ''
         }
       });
+      const navigate = useNavigate()
       const mutation = useMutation('signup',addUser,{
         onSuccess: (data) => {
           console.log(data);
+          alert("Email verification has been sent!")
+          navigate('/login')
         },
         onError: (error) => {
           console.log(error);
@@ -31,7 +35,7 @@ const Register = () => {
                message: "Name is required"
          } 
         })}
-           placeholder="First name" 
+           placeholder="Username" 
            />
     
           <input {...register("email", { required: {
@@ -52,7 +56,7 @@ const Register = () => {
         
           <input type="submit" />
         </form>
-        {errors ? errors.map((error)=> <p>{error}</p>): ""}
+        
         </div>
        
       );

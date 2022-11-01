@@ -74,7 +74,7 @@ export const getDocs = async () => {
     try{
         
         const res = await docRequest.get('/doc/review')
-        console.log(res)
+        
         return res
     }catch(error){
         throw new Error('Error',error.response.data)

@@ -20,7 +20,6 @@ const addIcon = <FontAwesomeIcon icon={faPlus} size='3x'/>
 const navigate = useNavigate();
 
 const user =  useSelector((state)=> state.user.user)
-console.log(user)
 const token = useSelector((state)=> state.user.token)
 if(!token){
   navigate('/login',{replace: true})
@@ -28,7 +27,6 @@ if(!token){
 const dispatch = useDispatch()
 const { isLoading, isError, data, error ,isFetched} = useQuery(['doc'],getUserDoc,{
   enabled: user.role === 'user',
-  retry: 3
 });
 const docs = useQuery(['docs'],getDocs,{
 enabled: user.role === 'review' ,
