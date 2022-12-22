@@ -3,6 +3,7 @@
     height: 100%;
     overflow: auto;
     background-color: hsl(126, 68%, 96%);
+    min-height: 100vh;
 }
 .logo-container{
     position: absolute;
@@ -56,4 +57,11 @@
     box-shadow: 2px -2px 5px 1px #888888f9 inset;
     top: 5%;
     right: 0;
+}
+.review-docs{
+    display: flex;
+    flex-wrap: wrap;
+}
+.user-doc{
+    margin: 10px;
 }

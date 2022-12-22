@@ -64,14 +64,17 @@ const ReviewDoc = ({doc}) => {
               Documents {open? <ExpandLess/> : <ExpandMore/>}
              </Typography>
              <Collapse in={open}>
-              {documents.map((document)=> {
+              <div className="review-docs">
+                {documents.map((document)=> {
                 return(
-                  <div key={document._id}>
+                  <div className="user-doc" key={document._id}>
                   <a href={`data:application/pdf;base64,${BufferToBase64(document.file)}`} download='application.pdf'>download</a>
                    <embed src={`data:application/pdf;base64,${BufferToBase64(document.file)}`} /> 
                  </div>  
                 )
               })}
+              </div>
+              
              </Collapse>
             
             </div> 
@@ -79,7 +82,7 @@ const ReviewDoc = ({doc}) => {
               <Typography variant="h5" align="center" sx={{fontWeight: 'bold',textDecoration: 'underline'}}>Comments</Typography>
               {comments && comments.map(comment => {
                 return(
-                  <Typography variant="h6" align="center" gutterBottom sx={{fontFamily:"Georgia, serif"}} key={comment.id}>
+                  <Typography variant="h6" align="center" gutterBottom sx={{fontFamily:"Georgia, serif"}} key={comment._id}>
                     {comment.body} <DeleteCommentBtn commentId={comment._id} docId={doc._id}/>
                   </Typography>
                 )

@@ -17,6 +17,10 @@ app.use("/users",userRoutes)
 app.use("/doc",docRoutes)
 app.use("/comments",commentRoutes)
 
+app.get("/", (req, res) => {
+	res.send("My Doc app");
+});
+
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=>{
     console.log(process.env.MONGO_URI)
